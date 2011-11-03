@@ -15,6 +15,12 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
+
+require 'rails/all'
+# If you have a Gemfile, require the gems listed there, including any gems
+# you've limited to :test, :development, or :production.
+Bundler.require(:default, Rails.env) if defined?(Bundler)
+
 module TestNew
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -50,5 +56,13 @@ module TestNew
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    ### Part of a Spork hack. See http://bit.ly/arY19y
+if Rails.env.test?
+initializer :after => :initialize_dependency_mechanism do
+# Work around initializer in railties/lib/rails/application/bootstrap.rb
+ActiveSupport::Dependencies.mechanism = :load
+end
   end
+end
 end
