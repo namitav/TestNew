@@ -6,5 +6,7 @@ class PagesController < ApplicationController
   end
   def about
 end
-
+def help
+@title = "Help"
+end
 end

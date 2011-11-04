@@ -1,8 +1,22 @@
 require 'spec_helper'
+describe UsersController do
+describe "GET 'new'" do
+it "should be successful" do
+get 'new'
+response.should be_success
+end
+end
+end
 
 describe PagesController do
 
 render_views
+before(:each) do
+#
+# Define @base_title here.
+#
+end
+
   describe "GET 'home'" do
     it "should be successful" do
       get 'home'
